@@ -22,6 +22,7 @@ $ pnpm run start:prod
 ```
 
 ## .env
+
 ```bash
 $ DATABASE_URL="file:./dev.db"
 ```
@@ -30,4 +31,10 @@ $ DATABASE_URL="file:./dev.db"
 
 ```bash
 $ npx prisma migrate dev
+```
+
+## swagger
+Rode a aplicação e acesse o endpoint ```/api``` 
+```bash
+$ localhost:3000/api
 ```
