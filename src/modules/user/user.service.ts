@@ -75,7 +75,7 @@ export class UserService {
 
       const dateNaissance = updateUserDto.dateNaissance
         ? new Date(updateUserDto.dateNaissance)
-        : null;
+        : userExists.dateNaissance;
 
       const userDtoWithDate = {
         ...updateUserDto,
