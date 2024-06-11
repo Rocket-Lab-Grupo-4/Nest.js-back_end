@@ -22,4 +22,20 @@ model User {
   cep           String
   complement    String
   manager       Boolean  @default(false)
+
+  evaluationsAsEvaluator Avaliation[] @relation("evaluator")
+  evaluationsAsEvaluated Avaliation[] @relation("evaluated")
+}
+
+model Avaliation {
+  id          String   @id @default(cuid())
+  dataCreated DateTime @default(now())
+
+  avaliationType String
+
+  evaluatorId String
+  evaluatedId String
+
+  evaluator User @relation("evaluator", fields: [evaluatorId], references: [id])
+  evaluated User @relation("evaluated", fields: [evaluatedId], references: [id])
 }
