@@ -7,14 +7,21 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     try {
       const userExists = await UserRepository.findOne({
-        email: createUserDto.email,
+        cpf: createUserDto.cpf,
       });
 
       if (userExists) {
         return 'User already exists';
       }
 
-      const newProduct = await UserRepository.create(createUserDto);
+      const dateNaissance = new Date(createUserDto.dateNaissance);
+
+      const userDtoWithDate = {
+        ...createUserDto,
+        dateNaissance: dateNaissance,
+      };
+
+      const newProduct = await UserRepository.create(userDtoWithDate);
 
       if (!newProduct) {
         return 'Error creating user';
@@ -22,7 +29,7 @@ export class UserService {
 
       return newProduct;
     } catch (error) {
-      return 'Error creating user';
+      return `${error} Error creating user`;
     }
   }
 
@@ -66,7 +73,16 @@ export class UserService {
         return 'User not found';
       }
 
-      const user = await UserRepository.update(id, updateUserDto);
+      const dateNaissance = updateUserDto.dateNaissance
+        ? new Date(updateUserDto.dateNaissance)
+        : userExists.dateNaissance;
+
+      const userDtoWithDate = {
+        ...updateUserDto,
+        dateNaissance: dateNaissance,
+      };
+
+      const user = await UserRepository.update(id, userDtoWithDate);
 
       if (!user) {
         return 'Error updating user';
