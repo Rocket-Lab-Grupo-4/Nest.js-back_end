@@ -6,31 +6,30 @@ import { CreateQuestionDTO, UpdateQuestionDTO } from './questions.dto';
 @ApiTags('questions')
 @Controller('questions')
 export class QuestionsController {
-    constructor(private readonly questionsService: QuestionsService) {}
+  constructor(private readonly questionsService: QuestionsService) {}
 
-    @Post()
-    create(@Body() createQuestionDto: CreateQuestionDTO) {
-        return this.questionsService.create(createQuestionDto);
-    }
-
-    @Get()
-    findAll() {
-        return this.questionsService.findAll();
+  @Post()
+  create(@Body() createQuestionDto: CreateQuestionDTO) {
+    return this.questionsService.create(createQuestionDto);
   }
 
-    @Get(':id') 
-    findOne(@Param('id') id: number) {
-        return this.questionsService.findOne(Number(id));
-    }
-    
-    @Patch(':id')
-    update(@Param('id') id: number, @Body() updateQuestionDto: UpdateQuestionDTO ) {
-        return this.questionsService.update(Number(id), updateQuestionDto);
-    }
+  @Get()
+  findAll() {
+    return this.questionsService.findAll();
+  }
 
-    @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.questionsService.remove(Number(id));
-    }
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.questionsService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: number, @Body() updateQuestionDto: UpdateQuestionDTO ) {
+      return this.questionsService.update(Number(id), updateQuestionDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    return this.questionsService.remove(id);
+  }
 }
-
