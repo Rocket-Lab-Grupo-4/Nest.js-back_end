@@ -63,3 +63,11 @@ model Answer {
   Question   Question? @relation(fields: [questionId], references: [id])
   questionId String?
 }
+
+model Assignment {
+  id            String   @id @default(cuid())
+  status        Boolean
+  type          String
+  dataAnswered  DateTime
+  dateConcluded DateTime
+}
