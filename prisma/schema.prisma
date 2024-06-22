@@ -69,6 +69,7 @@ model Assignment {
   id             String           @id @default(cuid())
   status         Boolean          @default(false)
   type           String
+  media          Float?
   dataAnswered   DateTime
   dateConcluded  DateTime
   UserAssignment UserAssignment[]

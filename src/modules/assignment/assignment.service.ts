@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { AssignmetAnswerDto, UpdateAssignmentDto } from './assignment.DTO';
 import AssignmentRepository from './assignment.repositories';
+import userRepositories from '../user/user.repositories';
+import userAssignmentRepositories from '../user-assignment/user-assignment.repositories';
 @Injectable()
 export class AssignmentService {
   async create(createAssignment: AssignmetAnswerDto) {
@@ -11,9 +13,24 @@ export class AssignmentService {
         throw new Error('Error creating assignment');
       }
 
+      const users = await userRepositories.findAll();
+
+      const userAssignments = users.map((user) => ({
+        userId: user.id,
+        assignmentId: assignment.id,
+      }));
+
+      const assignmentWithUser =
+        await userAssignmentRepositories.createMany(userAssignments);
+
+      if (!assignmentWithUser) {
+        throw new Error('Error creating user assignments');
+      }
+
       return assignment;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 

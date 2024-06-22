@@ -14,6 +14,12 @@ export class AssignmetAnswerDto {
   type: string;
 
   @ApiProperty({
+    description: 'Media',
+    example: 1,
+  })
+  media: number;
+
+  @ApiProperty({
     description: 'Data Answered',
     example: '2021-09-26T00:00:00Z',
   })

@@ -22,6 +22,25 @@ class UserAssignmentRepository {
     }
   }
 
+  async createMany(data: { userId: string; assignmentId: string }[]) {
+    try {
+      const assignments = await Promise.all(
+        data.map(async (userAssignment) => {
+          return await this.prisma.userAssignment.create({
+            data: {
+              user: { connect: { id: userAssignment.userId } },
+              assignment: { connect: { id: userAssignment.assignmentId } },
+            },
+          });
+        }),
+      );
+
+      return assignments;
+    } catch (error) {
+      throw new Error('Error creating user assignments');
+    }
+  }
+
   async findMany() {
     try {
       return await this.prisma.userAssignment.findMany();
