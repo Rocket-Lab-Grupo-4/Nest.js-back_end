@@ -4,9 +4,10 @@ import { AvaliationModule } from './modules/avaliation/avaliation.module';
 import { QuestionModule } from './modules/question/question.module';
 import { AnswerModule } from './modules/answer/answer.module';
 import { AssignmentModule } from './modules/assignment/assignment.module';
+import { UserAssignmentModule } from './modules/user-assignment/user-assignment.module';
 
 @Module({
-  imports: [UserModule, AvaliationModule, QuestionModule, AnswerModule, AssignmentModule],
+  imports: [UserModule, AvaliationModule, QuestionModule, AnswerModule, AssignmentModule, UserAssignmentModule],
   controllers: [],
   providers: [],
 })
