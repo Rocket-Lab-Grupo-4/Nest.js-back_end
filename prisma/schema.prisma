@@ -38,11 +38,13 @@ model Avaliation {
 
   evaluatorId String
   evaluatedId String
+  userAssignmentId String?
 
   evaluator User @relation("evaluator", fields: [evaluatorId], references: [id])
   evaluated User @relation("evaluated", fields: [evaluatedId], references: [id])
+  UserAssignment   UserAssignment? @relation(fields: [userAssignmentId], references: [id])
 
-  asnwers Answer[]
+  asnwers          Answer[]
 }
 
 model Question {
@@ -80,8 +82,10 @@ model UserAssignment {
   user         User       @relation(fields: [userId], references: [id])
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
 
-  media          Float?
-  status         Boolean          @default(false)
+  media  Float?
+  status Boolean @default(false)
+
+  avaliations Avaliation[]
 
   @@unique([userId, assignmentId])
 }

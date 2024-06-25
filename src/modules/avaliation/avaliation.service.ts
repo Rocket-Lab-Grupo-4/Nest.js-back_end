@@ -19,6 +19,9 @@ export class AvaliationService {
         ...createAvaliationDtoWithlowerCaseType,
         evaluator: { connect: { id: evaluatorId } },
         evaluated: { connect: { id: evaluatedId } },
+        UserAssignment: {
+          connect: { id: createAvaliationDto.userAssignmentId },
+        },
       });
 
       if (!avaliation) {
