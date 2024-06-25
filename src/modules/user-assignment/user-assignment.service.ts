@@ -28,7 +28,6 @@ export class UserAssignmentService {
       }
 
       const assignment = await UserAssignmentRepository.create({
-        media: CreateUserAssignmentDto.media,
         status: CreateUserAssignmentDto.status,
         user: { connect: { id: CreateUserAssignmentDto.userId } },
         assignment: { connect: { id: CreateUserAssignmentDto.assignmentId } },
@@ -114,7 +113,6 @@ export class UserAssignmentService {
       }
 
       const userAssignmentUpdate = await UserAssignmentRepository.update(id, {
-        media: data.media,
         status: data.status,
         user: { connect: { id: data.userId } },
         assignment: { connect: { id: data.assignmentId } },

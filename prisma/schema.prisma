@@ -35,6 +35,7 @@ model Avaliation {
   dataCreated DateTime @default(now())
 
   avaliationType String
+  media  Float?
 
   evaluatorId String
   evaluatedId String
@@ -82,7 +83,6 @@ model UserAssignment {
   user         User       @relation(fields: [userId], references: [id])
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
 
-  media  Float?
   status Boolean @default(false)
 
   avaliations Avaliation[]

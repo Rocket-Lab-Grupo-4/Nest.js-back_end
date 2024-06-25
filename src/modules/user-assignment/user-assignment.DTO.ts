@@ -18,12 +18,6 @@ export class CreateUserAssignmentDto {
     example: 'true',
   })
   status: boolean;
-
-  @ApiProperty({
-    description: 'Media',
-    example: 1,
-  })
-  media: number;
 }
 
 export class UpdateUserAssignmentDto extends PartialType(

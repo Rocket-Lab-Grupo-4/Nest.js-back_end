@@ -22,6 +22,7 @@ export class AvaliationService {
         UserAssignment: {
           connect: { id: createAvaliationDto.userAssignmentId },
         },
+        media: createAvaliationDto.media,
       });
 
       if (!avaliation) {
