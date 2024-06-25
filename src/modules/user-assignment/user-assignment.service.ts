@@ -107,10 +107,24 @@ export class UserAssignmentService {
 
   async update(id: string, data: UpdateUserAssignmentDto) {
     try {
-      return await UserAssignmentRepository.update(id, {
+      const userAssignmentexists = await UserAssignmentRepository.findOne(id);
+
+      if (!userAssignmentexists) {
+        throw new Error('User assignment not found');
+      }
+
+      const userAssignmentUpdate = await UserAssignmentRepository.update(id, {
+        media: data.media,
+        status: data.status,
         user: { connect: { id: data.userId } },
         assignment: { connect: { id: data.assignmentId } },
       });
+
+      if (!userAssignmentUpdate) {
+        throw new Error('User assignment not updated');
+      }
+
+      return userAssignmentUpdate;
     } catch (error) {
       throw new Error(error);
     }
