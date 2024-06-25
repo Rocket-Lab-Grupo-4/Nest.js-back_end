@@ -7,24 +7,35 @@ import userAssignmentRepositories from '../user-assignment/user-assignment.repos
 export class AssignmentService {
   async create(createAssignment: AssignmetAnswerDto) {
     try {
-      const assignment = await AssignmentRepository.create(createAssignment);
+      const createAssignmentWithformatDate = {
+        ...createAssignment,
+        dataAnswered: new Date(createAssignment.dataAnswered),
+        dateConcluded: new Date(createAssignment.dateConcluded),
+      };
+
+      const assignment = await AssignmentRepository.create(
+        createAssignmentWithformatDate,
+      );
 
       if (!assignment) {
         throw new Error('Error creating assignment');
       }
 
+      // create assignment for all users
       const users = await userRepositories.findAll();
 
       const userAssignments = users.map((user) => ({
+        media: null,
+        status: false,
         userId: user.id,
         assignmentId: assignment.id,
       }));
 
-      const assignmentWithUser =
+      const userAssignment =
         await userAssignmentRepositories.createMany(userAssignments);
 
-      if (!assignmentWithUser) {
-        throw new Error('Error creating user assignments');
+      if (!userAssignment) {
+        throw new Error('Error creating user assignment');
       }
 
       return assignment;

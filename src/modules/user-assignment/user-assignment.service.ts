@@ -28,6 +28,8 @@ export class UserAssignmentService {
       }
 
       const assignment = await UserAssignmentRepository.create({
+        media: CreateUserAssignmentDto.media,
+        status: CreateUserAssignmentDto.status,
         user: { connect: { id: CreateUserAssignmentDto.userId } },
         assignment: { connect: { id: CreateUserAssignmentDto.assignmentId } },
       });

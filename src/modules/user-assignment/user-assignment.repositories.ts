@@ -22,22 +22,15 @@ class UserAssignmentRepository {
     }
   }
 
-  async createMany(data: { userId: string; assignmentId: string }[]) {
+  async createMany(data: Prisma.UserAssignmentCreateManyInput[]) {
     try {
-      const assignments = await Promise.all(
-        data.map(async (userAssignment) => {
-          return await this.prisma.userAssignment.create({
-            data: {
-              user: { connect: { id: userAssignment.userId } },
-              assignment: { connect: { id: userAssignment.assignmentId } },
-            },
-          });
-        }),
-      );
+      const response = await this.prisma.userAssignment.createMany({
+        data,
+      });
 
-      return assignments;
+      return response;
     } catch (error) {
-      throw new Error('Error creating user assignments');
+      throw new Error(error);
     }
   }
 

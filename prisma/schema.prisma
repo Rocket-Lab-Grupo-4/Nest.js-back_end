@@ -67,9 +67,7 @@ model Answer {
 
 model Assignment {
   id             String           @id @default(cuid())
-  status         Boolean          @default(false)
   type           String
-  media          Float?
   dataAnswered   DateTime
   dateConcluded  DateTime
   UserAssignment UserAssignment[]
@@ -80,7 +78,10 @@ model UserAssignment {
   userId       String
   assignmentId String
   user         User       @relation(fields: [userId], references: [id])
-  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  media          Float?
+  status         Boolean          @default(false)
 
   @@unique([userId, assignmentId])
 }
