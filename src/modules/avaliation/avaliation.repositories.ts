@@ -56,6 +56,13 @@ class AvaliationRepository {
     return avaliations;
   }
 
+  async findAvaliationByUserAssignmentId(userAssignmentId: string) {
+    const avaliation = await this.prisma.avaliation.findMany({
+      where: { userAssignmentId },
+    });
+    return avaliation;
+  }
+
   async update(id: string, data: Prisma.AvaliationUpdateInput) {
     const avaliation = await this.prisma.avaliation.update({
       where: { id },
