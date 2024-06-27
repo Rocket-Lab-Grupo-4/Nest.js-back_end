@@ -49,6 +49,15 @@ export class AvaliationController {
     return this.avaliationService.findByAvaliationType(avaliationType);
   }
 
+  @Get('findByUserAssignmentId/:userAssignmentId')
+  async findByUserAssignmentId(
+    @Param('userAssignmentId') userAssignmentId: string,
+  ) {
+    return this.avaliationService.findAvaliationByUserAssignmentId(
+      userAssignmentId,
+    );
+  }
+
   @Patch(':id')
   async update(
     @Param('id') id: string,
