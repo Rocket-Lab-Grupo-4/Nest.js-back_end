@@ -74,6 +74,21 @@ export class AvaliationService {
     }
   }
 
+  async findAvaliationByEvaluatorId(evaluatorId: string) {
+    try {
+      const avaliations =
+        await AvaliationRepository.findByEvaluatorId(evaluatorId);
+
+      if (!avaliations) {
+        return 'No avaliations found';
+      }
+
+      return avaliations;
+    } catch (error) {
+      return `${error} Error finding avaliations`;
+    }
+  }
+
   async findByAvaliationType(avaliationType: string) {
     try {
       const typeLower = avaliationType.toLowerCase();

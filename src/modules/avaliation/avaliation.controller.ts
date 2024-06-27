@@ -44,6 +44,11 @@ export class AvaliationController {
     return this.avaliationService.findByEvaluatedId(evaluatedId);
   }
 
+  @Get('findByEvaluatorId/:evaluatorId')
+  async findByEvaluatorId(@Param('evaluatorId') evaluatorId: string) {
+    return this.avaliationService.findAvaliationByEvaluatorId(evaluatorId);
+  }
+
   @Get('findByAvaliationType/:avaliationType')
   async findByAvaliationType(@Param('avaliationType') avaliationType: string) {
     return this.avaliationService.findByAvaliationType(avaliationType);
