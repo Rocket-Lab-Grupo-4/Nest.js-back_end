@@ -32,6 +32,16 @@ class AvaliationRepository {
     return avaliations;
   }
 
+  async findByEvaluatorId(evaluatorId: string) {
+    const avaliations = await this.prisma.avaliation.findMany({
+      where: { evaluatorId },
+      include: {
+        asnwers: true,
+      },
+    });
+    return avaliations;
+  }
+
   async findByEvaluatorIdAndEvaluatedId(
     evaluatorId: string,
     evaluatedId: string,
