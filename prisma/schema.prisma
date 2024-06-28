@@ -71,7 +71,8 @@ model Answer {
 model Assignment {
   id             String           @id @default(cuid())
   type           String
-  dataAnswered   DateTime
+  dataAnswered   DateTime?
+  dateOpened     DateTime @default(now())
   dateConcluded  DateTime
   UserAssignment UserAssignment[]
 }
