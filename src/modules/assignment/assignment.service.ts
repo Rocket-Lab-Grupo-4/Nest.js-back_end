@@ -44,7 +44,7 @@ export class AssignmentService {
       return assignment;
     } catch (error) {
       console.log(error);
-      throw error;
+      throw 'erro:' + error;
     }
   }
 
