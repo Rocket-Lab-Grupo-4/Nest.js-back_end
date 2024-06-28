@@ -7,9 +7,13 @@ import userAssignmentRepositories from '../user-assignment/user-assignment.repos
 export class AssignmentService {
   async create(createAssignment: AssignmetAnswerDto) {
     try {
+      const lengthAssignment = await AssignmentRepository.findAll();
+
+      const assignmentName = `Ciclo de avaliação ${lengthAssignment.length + 1}`;
+
       const createAssignmentWithformatDate = {
-        ...createAssignment,
-        dataAnswered: new Date(createAssignment.dataAnswered),
+        type: assignmentName,
+        dateOpened: new Date(createAssignment.dateOpened),
         dateConcluded: new Date(createAssignment.dateConcluded),
       };
 
@@ -25,7 +29,6 @@ export class AssignmentService {
       const users = await userRepositories.findAll();
 
       const userAssignments = users.map((user) => ({
-        media: null,
         status: false,
         userId: user.id,
         assignmentId: assignment.id,
