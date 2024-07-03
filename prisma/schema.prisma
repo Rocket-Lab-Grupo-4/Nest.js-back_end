@@ -61,6 +61,8 @@ model Answer {
   answer        Int
   justificative String
 
+  evaluatedId String?
+
   Avaliation   Avaliation? @relation(fields: [avaliationId], references: [id])
   avaliationId String?
 

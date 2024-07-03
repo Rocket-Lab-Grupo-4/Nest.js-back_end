@@ -41,6 +41,13 @@ export class AnswerController {
     return answer;
   }
 
+  @Get('evaluated/:evaluatedId')
+  async findAnswerByEvaluatedId(@Param('evaluatedId') evaluatedId: string) {
+    const answer =
+      await this.answerService.findAnswerByEvaluatedId(evaluatedId);
+    return answer;
+  }
+
   @Patch(':id')
   async update(
     @Param('id') id: string,

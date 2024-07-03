@@ -47,6 +47,7 @@ export class AnswerService {
       justificative: answer.justificative,
       avaliationId: avaliation.id,
       questionId: answer.questionId,
+      evaluatedId: evaluatedId,
     }));
 
     const createdAnswers = await AnswerRepository.createMany(answerData);
@@ -57,6 +58,27 @@ export class AnswerService {
   async findAll() {
     try {
       const answers = await AnswerRepository.findAll();
+
+      if (!answers) {
+        throw new Error('No answers found');
+      }
+
+      return answers;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findAnswerByEvaluatedId(evaluatedId: string) {
+    try {
+      const user = await UserRepository.findOne({ id: evaluatedId });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const answers =
+        await AnswerRepository.findAnswerByEvaluatedId(evaluatedId);
 
       if (!answers) {
         throw new Error('No answers found');

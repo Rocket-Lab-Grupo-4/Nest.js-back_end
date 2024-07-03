@@ -29,6 +29,15 @@ class AnswerRepository {
     });
   }
 
+  async findAnswerByEvaluatedId(evaluatedId: string) {
+    const answers = await this.prisma.answer.findMany({
+      where: {
+        evaluatedId,
+      },
+    });
+    return answers;
+  }
+
   async findAll() {
     const answers = await this.prisma.answer.findMany();
     return answers;
