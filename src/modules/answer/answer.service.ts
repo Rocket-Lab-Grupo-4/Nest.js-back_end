@@ -82,6 +82,29 @@ export class AnswerService {
     }
   }
 
+  async findAnswerByAvaliationId(avaliationId: string) {
+    try {
+      const avaliation = await AvaliationRepository.findOne({
+        id: avaliationId,
+      });
+
+      if (!avaliation) {
+        throw new Error('Avaliation not found');
+      }
+
+      const answers =
+        await AnswerRepository.findAnswerByAvaliationId(avaliationId);
+
+      if (!answers) {
+        throw new Error('No answers found');
+      }
+
+      return answers;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async update(id: string, answerData: UpdateAnswerDto) {
     try {
       const answer = await AnswerRepository.findOne({ id });

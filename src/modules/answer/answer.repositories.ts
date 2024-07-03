@@ -39,6 +39,15 @@ class AnswerRepository {
     return answer;
   }
 
+  async findAnswerByAvaliationId(avaliationId: string) {
+    const answers = await this.prisma.answer.findMany({
+      where: {
+        avaliationId,
+      },
+    });
+    return answers;
+  }
+
   async update(id: string, data: Prisma.AnswerUpdateInput) {
     const answer = await this.prisma.answer.update({
       where: { id },

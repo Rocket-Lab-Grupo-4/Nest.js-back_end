@@ -28,9 +28,16 @@ export class AnswerController {
     return answer;
   }
 
-  @Get(':id')
+  @Get('answer/:id')
   async findOne(@Param('id') id: string) {
     const answer = await this.answerService.findOne(id);
+    return answer;
+  }
+
+  @Get('avaliation/:avaliationId')
+  async findAnswerByAvaliationId(@Param('avaliationId') avaliationId: string) {
+    const answer =
+      await this.answerService.findAnswerByAvaliationId(avaliationId);
     return answer;
   }
 
