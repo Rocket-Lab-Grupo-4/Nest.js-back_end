@@ -47,6 +47,7 @@ export class AnswerService {
       justificative: answer.justificative,
       avaliationId: avaliation.id,
       questionId: answer.questionId,
+      evaluatedId: evaluatedId,
     }));
 
     const createdAnswers = await AnswerRepository.createMany(answerData);
@@ -68,6 +69,27 @@ export class AnswerService {
     }
   }
 
+  async findAnswerByEvaluatedId(evaluatedId: string) {
+    try {
+      const user = await UserRepository.findOne({ id: evaluatedId });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const answers =
+        await AnswerRepository.findAnswerByEvaluatedId(evaluatedId);
+
+      if (!answers) {
+        throw new Error('No answers found');
+      }
+
+      return answers;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async findOne(id: string) {
     try {
       const answer = await AnswerRepository.findOne({ id });
@@ -77,6 +99,29 @@ export class AnswerService {
       }
 
       return answer;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findAnswerByAvaliationId(avaliationId: string) {
+    try {
+      const avaliation = await AvaliationRepository.findOne({
+        id: avaliationId,
+      });
+
+      if (!avaliation) {
+        throw new Error('Avaliation not found');
+      }
+
+      const answers =
+        await AnswerRepository.findAnswerByAvaliationId(avaliationId);
+
+      if (!answers) {
+        throw new Error('No answers found');
+      }
+
+      return answers;
     } catch (error) {
       throw new Error(error);
     }

@@ -29,6 +29,15 @@ class AnswerRepository {
     });
   }
 
+  async findAnswerByEvaluatedId(evaluatedId: string) {
+    const answers = await this.prisma.answer.findMany({
+      where: {
+        evaluatedId,
+      },
+    });
+    return answers;
+  }
+
   async findAll() {
     const answers = await this.prisma.answer.findMany();
     return answers;
@@ -37,6 +46,15 @@ class AnswerRepository {
   async findOne(where: Prisma.AnswerWhereUniqueInput) {
     const answer = await this.prisma.answer.findUnique({ where });
     return answer;
+  }
+
+  async findAnswerByAvaliationId(avaliationId: string) {
+    const answers = await this.prisma.answer.findMany({
+      where: {
+        avaliationId,
+      },
+    });
+    return answers;
   }
 
   async update(id: string, data: Prisma.AnswerUpdateInput) {
