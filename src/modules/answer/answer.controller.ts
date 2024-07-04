@@ -57,29 +57,29 @@ export class AnswerController {
     return answer;
   }
 
-  @Delete('answer/:id')
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     const answer = await this.answerService.delete(id);
     return answer;
   }
 
-  @Delete('avaliationByEvaluated/:evaluatedId/:avaliationId')
-  async deleteAvaliationByEvaluatedAndAvaliationId(
-    @Param('evaluatedId') evaluatedId: string,
-    @Param('avaliationId') avaliationId: string,
-  ) {
-    const answer =
-      await this.answerService.removeAnswerByEvuatedIdAndAvaliationId(
-        evaluatedId,
-        avaliationId,
-      );
-    return answer;
-  }
+  // @Delete('avaliationByEvaluated/:evaluatedId/:avaliationId')
+  // async deleteAvaliationByEvaluatedAndAvaliationId(
+  //   @Param('evaluatedId') evaluatedId: string,
+  //   @Param('avaliationId') avaliationId: string,
+  // ) {
+  //   const answer =
+  //     await this.answerService.removeAnswerByEvuatedIdAndAvaliationId(
+  //       evaluatedId,
+  //       avaliationId,
+  //     );
+  //   return answer;
+  // }
 
-  @Delete('avaliation/:avaliationId')
-  async deleteAvaliation(@Param('avaliationId') avaliationId: string) {
-    const answer =
-      await this.answerService.removeAnswerByAvaliationId(avaliationId);
-    return answer;
-  }
+  // @Delete('avaliation/:avaliationId')
+  // async deleteAvaliation(@Param('avaliationId') avaliationId: string) {
+  //   const answer =
+  //     await this.answerService.removeAnswerByAvaliationId(avaliationId);
+  //   return answer;
+  // }
 }
