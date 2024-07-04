@@ -81,6 +81,43 @@ export class UserAssignmentService {
     }
   }
 
+  async findUserAssignmentByUserAndAssignment(
+    userId: string,
+    assignmentId: string,
+  ) {
+    try {
+      const userExists = await userRepositories.findOne({
+        id: userId,
+      });
+
+      if (!userExists) {
+        throw new Error('User not found');
+      }
+
+      const assignmentExists = await AssignmentRepository.findOne({
+        id: assignmentId,
+      });
+
+      if (!assignmentExists) {
+        throw new Error('Assignment not found');
+      }
+
+      const userAssignment =
+        await UserAssignmentRepository.findByUserIdAndAssignmentId(
+          userId,
+          assignmentId,
+        );
+
+      if (!userAssignment) {
+        throw new Error('User assignment not found');
+      }
+
+      return userAssignment;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async findByAssignment(assignmentId: string) {
     try {
       const assignmentExists = await AssignmentRepository.findOne({

@@ -78,6 +78,19 @@ class UserAssignmentRepository {
     }
   }
 
+  async findByUserIdAndAssignmentId(userId: string, assignmentId: string) {
+    try {
+      return await this.prisma.userAssignment.findFirst({
+        where: {
+          userId,
+          assignmentId,
+        },
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async update(id: string, data: Prisma.UserAssignmentUpdateInput) {
     try {
       return await this.prisma.userAssignment.update({
