@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { UserAssignmentService } from './user-assignment.service';
 import {
-  CreateUserAssignmentDto,
   UpdateUserAssignmentDto,
+  CreateUserAssignmentDto,
 } from './user-assignment.DTO';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -32,6 +32,17 @@ export class UserAssignmentController {
   @Get('userAssignment/:id')
   async findOne(@Param('id') id: string) {
     return await this.userAssignmentService.findOne(id);
+  }
+
+  @Get('userAssignment/:userId/:assignmentId')
+  async findOneByUserAndAssignment(
+    @Param('userId') userId: string,
+    @Param('assignmentId') assignmentId: string,
+  ) {
+    return await this.userAssignmentService.findUserAssignmentByUserAndAssignment(
+      userId,
+      assignmentId,
+    );
   }
 
   @Get('user/:userId')
