@@ -158,4 +158,54 @@ export class AnswerService {
       throw new Error(error);
     }
   }
+
+  async removeAnswerByEvuatedIdAndAvaliationId(
+    evaluatedId: string,
+    avaliationId: string,
+  ) {
+    try {
+      const user = await UserRepository.findOne({ id: evaluatedId });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const avaliation = await AvaliationRepository.findOne({
+        id: avaliationId,
+      });
+
+      if (!avaliation) {
+        throw new Error('Avaliation not found');
+      }
+
+      const answers =
+        await AnswerRepository.removeAnswerByEvuatedIdAndAvaliationId(
+          evaluatedId,
+          avaliationId,
+        );
+
+      return answers;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async removeAnswerByAvaliationId(avaliationId: string) {
+    try {
+      const avaliation = await AvaliationRepository.findOne({
+        id: avaliationId,
+      });
+
+      if (!avaliation) {
+        throw new Error('Avaliation not found');
+      }
+
+      const answers =
+        await AnswerRepository.removeAnswerByAvaliationId(avaliationId);
+
+      return answers;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

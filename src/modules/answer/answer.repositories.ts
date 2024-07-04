@@ -69,6 +69,28 @@ class AnswerRepository {
     const answer = await this.prisma.answer.delete({ where });
     return answer;
   }
+
+  async removeAnswerByEvuatedIdAndAvaliationId(
+    evaluatedId: string,
+    avaliationId: string,
+  ) {
+    const answers = await this.prisma.answer.deleteMany({
+      where: {
+        evaluatedId,
+        avaliationId,
+      },
+    });
+    return answers;
+  }
+
+  async removeAnswerByAvaliationId(avaliationId: string) {
+    const answers = await this.prisma.answer.deleteMany({
+      where: {
+        avaliationId,
+      },
+    });
+    return answers;
+  }
 }
 
 export default new AnswerRepository(new PrismaService());
